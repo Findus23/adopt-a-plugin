@@ -37,10 +37,10 @@ function formatDate($datestring) {
 
 require_once "vendor/autoload.php";
 
-//$json = file_get_contents("https://plugins.matomo.org/api/2.0/plugins");
-//$piwikVersion = trim(file_get_contents("https://api.piwik.org/1.0/getLatestVersion/"));
-$json = file_get_contents("plugins.json");
-$piwikVersion = "3.2.1";
+$json = file_get_contents("https://plugins.matomo.org/api/2.0/plugins");
+$piwikVersion = trim(file_get_contents("https://api.piwik.org/1.0/getLatestVersion/"));
+//$json = file_get_contents("plugins.json");
+//$piwikVersion = "3.2.1";
 
 $data = json_decode($json);
 foreach ($data->plugins as $plugin) {
