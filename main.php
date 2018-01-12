@@ -31,11 +31,16 @@ function emphasis($string) {
     return "*$string*";
 }
 
+function bold($string) {
+    return "**$string**";
+}
+
 function formatDate($datestring) {
     return date("Y-m-d", strtotime($datestring));
 }
 
 require_once "vendor/autoload.php";
+require_once "data.php";
 
 $json = file_get_contents("https://plugins.matomo.org/api/2.0/plugins");
 $piwikVersion = trim(file_get_contents("https://api.piwik.org/1.0/getLatestVersion/"));
@@ -83,6 +88,9 @@ foreach ($data->plugins as $plugin) {
         output(sprintf("%s commits by %s contributors | last commit was on %s",
             $activity->numCommits, $activity->numContributors, formatDate($activity->lastCommitDate)));
         output("Downloads: " . $plugin->numDownloads);
+        if (isset($discussions[$plugin->name])) {
+            output(bold(url("Discussion about this plugin", $discussions[$plugin->name])));
+        }
         if (!empty($plugin->screenshots)) {
             output(image($plugin->name, $plugin->screenshots));
         }
